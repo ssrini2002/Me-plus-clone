@@ -1,0 +1,111 @@
+// ============================================
+// Me+ Clone — Self-Care Tips Content
+// ============================================
+
+export const tips = [
+  {
+    id: 'tip-1',
+    title: 'The 2-Minute Rule',
+    emoji: '⏱️',
+    category: 'productivity',
+    content: 'If something takes less than 2 minutes, do it now. This simple rule prevents small tasks from piling up and becoming overwhelming.',
+    color: '#7C5CFC',
+  },
+  {
+    id: 'tip-2',
+    title: 'Hydration Matters',
+    emoji: '💧',
+    category: 'health',
+    content: 'Drinking water first thing in the morning kickstarts your metabolism and helps your body flush out toxins. Aim for a full glass before coffee.',
+    color: '#74B9FF',
+  },
+  {
+    id: 'tip-3',
+    title: 'Sleep Consistency',
+    emoji: '😴',
+    category: 'health',
+    content: 'Going to bed and waking up at the same time every day — even weekends — is more important than the total hours of sleep you get.',
+    color: '#6C5CE7',
+  },
+  {
+    id: 'tip-4',
+    title: 'Habit Stacking',
+    emoji: '🔗',
+    category: 'productivity',
+    content: 'Attach a new habit to an existing one. "After I pour my coffee, I will write 3 things I\'m grateful for." This creates automatic triggers.',
+    color: '#FFB347',
+  },
+  {
+    id: 'tip-5',
+    title: 'The 5-4-3-2-1 Grounding',
+    emoji: '🧠',
+    category: 'mind',
+    content: 'When anxious, notice 5 things you see, 4 you can touch, 3 you hear, 2 you smell, and 1 you taste. This technique brings you back to the present.',
+    color: '#4ECDC4',
+  },
+  {
+    id: 'tip-6',
+    title: 'Movement Breaks',
+    emoji: '🤸',
+    category: 'fitness',
+    content: 'For every 50 minutes of sitting, take a 10-minute movement break. Even a short walk can boost focus, mood, and creativity significantly.',
+    color: '#51CF66',
+  },
+  {
+    id: 'tip-7',
+    title: 'Digital Sunset',
+    emoji: '📵',
+    category: 'selfcare',
+    content: 'Set a time each evening to put away all screens. Blue light disrupts your circadian rhythm, and constant input prevents mental rest.',
+    color: '#FD79A8',
+  },
+  {
+    id: 'tip-8',
+    title: 'Gratitude Rewires Your Brain',
+    emoji: '🙏',
+    category: 'mind',
+    content: 'Writing down 3 things you\'re grateful for daily can measurably increase happiness levels within just 2 weeks of consistent practice.',
+    color: '#FDCB6E',
+  },
+  {
+    id: 'tip-9',
+    title: 'Eat the Frog',
+    emoji: '🐸',
+    category: 'productivity',
+    content: 'Do your hardest or most dreaded task first thing in the morning. Once it\'s done, everything else feels easier by comparison.',
+    color: '#00B894',
+  },
+  {
+    id: 'tip-10',
+    title: 'Power of Micro-Habits',
+    emoji: '🌱',
+    category: 'selfcare',
+    content: 'Start ridiculously small. Want to exercise? Start with 1 push-up. The goal isn\'t the push-up — it\'s building the identity of someone who exercises.',
+    color: '#55EFC4',
+  },
+  {
+    id: 'tip-11',
+    title: 'Sunlight Within 30 Min',
+    emoji: '☀️',
+    category: 'health',
+    content: 'Getting sunlight exposure within the first 30 minutes of waking helps set your circadian clock, improves mood, and boosts alertness throughout the day.',
+    color: '#FF9A56',
+  },
+  {
+    id: 'tip-12',
+    title: 'The Pomodoro Technique',
+    emoji: '🍅',
+    category: 'productivity',
+    content: 'Work for 25 minutes, then take a 5-minute break. After 4 rounds, take a longer 15-30 minute break. This maintains focus without burnout.',
+    color: '#FF7675',
+  },
+];
+
+export const tipCategories = [
+  { id: 'all', label: 'All Tips', emoji: '✨' },
+  { id: 'health', label: 'Health', emoji: '❤️' },
+  { id: 'mind', label: 'Mind', emoji: '🧠' },
+  { id: 'productivity', label: 'Productivity', emoji: '🎯' },
+  { id: 'fitness', label: 'Fitness', emoji: '💪' },
+  { id: 'selfcare', label: 'Self-Care', emoji: '🧘' },
+];
