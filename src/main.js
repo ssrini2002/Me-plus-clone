@@ -83,3 +83,17 @@ window.addEventListener('app-init', () => {
   const defaultStyle = document.querySelector('link[href="/style.css"]');
   if (defaultStyle) defaultStyle.remove();
 })();
+
+// ---------- Service Worker Registration ----------
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker
+      .register('/sw.js')
+      .then((reg) => {
+        console.log('[MePlus] Service Worker registered, scope:', reg.scope);
+      })
+      .catch((err) => {
+        console.warn('[MePlus] Service Worker registration failed:', err);
+      });
+  });
+}
