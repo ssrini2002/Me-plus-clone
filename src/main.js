@@ -3,7 +3,7 @@
 // ============================================
 
 import './index.css';
-import { isOnboardingComplete, getUser } from './store.js';
+import { initStore, isOnboardingComplete, getUser } from './store.js';
 import { registerRoute, initRouter, navigate } from './router.js';
 import { renderBottomNav, initBottomNav } from './components/BottomNav.js';
 import { renderOnboarding, initOnboarding } from './pages/Onboarding.js';
@@ -68,9 +68,18 @@ window.addEventListener('app-init', () => {
 });
 
 // ---------- Bootstrap ----------
-applyTheme();
-initRouter();
+// Initialize IndexedDB store before rendering anything
+(async () => {
+  try {
+    await initStore();
+  } catch (err) {
+    console.error('[MePlus] Failed to initialize database:', err);
+  }
 
-// Clean up default Vite files
-const defaultStyle = document.querySelector('link[href="/style.css"]');
-if (defaultStyle) defaultStyle.remove();
+  applyTheme();
+  initRouter();
+
+  // Clean up default Vite files
+  const defaultStyle = document.querySelector('link[href="/style.css"]');
+  if (defaultStyle) defaultStyle.remove();
+})();

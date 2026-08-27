@@ -12,7 +12,7 @@ export function renderProfile() {
   const user = getUser() || {};
   const stats = getStats();
   const memberSince = user.createdAt ? formatDateShort(user.createdAt) : 'Today';
-  
+
   return `
     <div class="page" id="profile-page">
       <!-- Profile Header -->
@@ -141,7 +141,6 @@ export function renderProfile() {
           Me+
         </div>
         <div class="text-xs text-tertiary mt-sm">Your Personal Lifestyle Companion</div>
-        <div class="text-xs text-tertiary">Made with 💜</div>
       </div>
     </div>
   `;
@@ -149,7 +148,7 @@ export function renderProfile() {
 
 function showEditProfileModal() {
   const user = getUser() || {};
-  
+
   const html = `
     <div class="input-group mb-lg">
       <label class="input-label">Your Name</label>
@@ -165,15 +164,15 @@ function showEditProfileModal() {
     </div>
     <button class="btn btn-primary btn-block" id="save-profile-btn">Save Changes</button>
   `;
-  
+
   showModal('Edit Profile', html);
-  
+
   setTimeout(() => {
     document.getElementById('save-profile-btn')?.addEventListener('click', () => {
       const name = document.getElementById('edit-name').value.trim() || 'Friend';
       const goal = document.getElementById('edit-goal').value.trim();
       const morningTime = document.getElementById('edit-morning-time').value || '07:00';
-      
+
       setUser({ ...user, name, goal, morningTime });
       closeModal();
       showToast('Profile updated! ✅', 'success');
@@ -185,27 +184,27 @@ function showEditProfileModal() {
 export function initProfile() {
   const page = document.getElementById('profile-page');
   if (!page) return;
-  
+
   page.addEventListener('click', (e) => {
     // Theme toggle
     if (e.target.closest('#toggle-theme')) {
       const current = document.documentElement.getAttribute('data-theme');
       const newTheme = current === 'dark' ? 'light' : 'dark';
       document.documentElement.setAttribute('data-theme', newTheme);
-      
+
       const user = getUser();
       if (user) setUser({ ...user, theme: newTheme });
-      
+
       window.dispatchEvent(new Event('page-refresh'));
       return;
     }
-    
+
     // Edit profile
     if (e.target.closest('#edit-profile-btn')) {
       showEditProfileModal();
       return;
     }
-    
+
     // Export data
     if (e.target.closest('#export-data-btn')) {
       const data = exportAllData();
@@ -219,7 +218,7 @@ export function initProfile() {
       showToast('Data exported! 📤', 'success');
       return;
     }
-    
+
     // Import data
     if (e.target.closest('#import-data-btn')) {
       const input = document.createElement('input');
@@ -228,12 +227,12 @@ export function initProfile() {
       input.onchange = (e) => {
         const file = e.target.files[0];
         if (!file) return;
-        
+
         const reader = new FileReader();
-        reader.onload = (ev) => {
+        reader.onload = async (ev) => {
           try {
             const data = JSON.parse(ev.target.result);
-            importAllData(data);
+            await importAllData(data);
             showToast('Data imported successfully! 📥', 'success');
             window.dispatchEvent(new Event('page-refresh'));
           } catch {
@@ -245,7 +244,7 @@ export function initProfile() {
       input.click();
       return;
     }
-    
+
     // Reset onboarding
     if (e.target.closest('#reset-onboarding-btn')) {
       if (confirm('This will show the onboarding flow again. Your data will be kept. Continue?')) {
@@ -255,13 +254,14 @@ export function initProfile() {
       }
       return;
     }
-    
+
     // Clear all data
     if (e.target.closest('#clear-data-btn')) {
       if (confirm('⚠️ This will permanently delete ALL your data including habits, routines, mood entries, and journal. This cannot be undone.\n\nAre you sure?')) {
-        clearAllData();
-        showToast('All data cleared', 'info');
-        window.dispatchEvent(new Event('app-init'));
+        clearAllData().then(() => {
+          showToast('All data cleared', 'info');
+          window.dispatchEvent(new Event('app-init'));
+        });
       }
       return;
     }
