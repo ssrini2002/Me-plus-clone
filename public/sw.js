@@ -7,17 +7,22 @@
 
 const CACHE_VERSION = 'meplus-v1';
 
+// Derive the base path from the service worker's own URL.
+// If SW is at /Me-plus-clone/sw.js, BASE = '/Me-plus-clone/'
+// If SW is at /sw.js, BASE = '/'
+const BASE = self.location.pathname.replace(/sw\.js$/, '');
+
 // App shell: files to pre-cache on install.
 // Vite hashes filenames, so we cache the entry point
 // and let runtime caching handle hashed assets.
 const APP_SHELL = [
-  '/',
-  '/manifest.webmanifest',
-  '/favicon.svg',
-  '/icons/icon-192x192.png',
-  '/icons/icon-512x512.png',
-  '/fonts/inter-latin.woff2',
-  '/fonts/outfit-latin.woff2',
+  BASE,
+  `${BASE}manifest.webmanifest`,
+  `${BASE}favicon.svg`,
+  `${BASE}icons/icon-192x192.png`,
+  `${BASE}icons/icon-512x512.png`,
+  `${BASE}fonts/inter-latin.woff2`,
+  `${BASE}fonts/outfit-latin.woff2`,
 ];
 
 // ---------- Install ----------
@@ -73,9 +78,9 @@ self.addEventListener('fetch', (event) => {
           return response;
         })
         .catch(() => {
-          // Offline: serve cached HTML
+          // Offline: serve cached HTML (fall back to base index)
           return caches.match(request).then(
-            (cached) => cached || caches.match('/')
+            (cached) => cached || caches.match(BASE)
           );
         })
     );
@@ -87,15 +92,14 @@ self.addEventListener('fetch', (event) => {
     caches.match(request).then((cached) => {
       if (cached) {
         // Return cached version immediately, but update cache in background
-        const fetchPromise = fetch(request)
+        fetch(request)
           .then((response) => {
             if (response.ok) {
               const clone = response.clone();
               caches.open(CACHE_VERSION).then((cache) => cache.put(request, clone));
             }
-            return response;
           })
-          .catch(() => cached);
+          .catch(() => {});
 
         // Stale-while-revalidate: return cached now, update later
         return cached;

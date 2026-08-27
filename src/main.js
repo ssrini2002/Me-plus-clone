@@ -87,8 +87,9 @@ window.addEventListener('app-init', () => {
 // ---------- Service Worker Registration ----------
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
+    const swUrl = `${import.meta.env.BASE_URL}sw.js`;
     navigator.serviceWorker
-      .register('/sw.js')
+      .register(swUrl)
       .then((reg) => {
         console.log('[MePlus] Service Worker registered, scope:', reg.scope);
       })
